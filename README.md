@@ -24,26 +24,79 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+files nest.js microservice | upload/delete files with s3 | using amqp message patterns
 
-## Installation
+## Prerequirements for local development
+
+1. Needs to have docker desktop installed on your machine
+
+## Launch rabbitmq & postgres with docker
 
 ```bash
+# run rabbitmq container on port:5672 (web: http://localhost:15672 (guest:guest))
+$ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
+$ docker ps
+```
+
+```bash
+# run postgres container on port:5432 (connect: psql postgresql://guest:guest@localhost:5432)
+$ docker run -d --name postgres -p 5432:5432 -e POSTGRES_USER=guest -e POSTGRES_PASSWORD=guset postgresql
+$ docker ps
+```
+
+```bash
+# to stop or delete these containers you can follow:
+$ docker stop -container_name-
+$ docker rm -container_name-
+$ docker rmi -container_name-
+```
+
+## Note
+
+There are two ways to launch this application:
+
+## Way №1 ( manually )
+
+Install dependecies
+
+```bash
+# If you don't have yarn on your machine yet
+$ npm install -g yarn
+
 $ yarn install
 ```
 
-## Running the app
+Start application
 
 ```bash
-# development
-$ yarn run start
+$ yarn dev # watch mode
 
-# watch mode
-$ yarn run start:dev
+$ yarn start # development mode
 
-# production mode
-$ yarn run start:prod
+$ yarn debug # debug mode
+
+$ yarn prod # production mode
 ```
+
+Now the application should listen amqp connection
+
+## Way №2 ( with docker )
+
+Build docker image
+
+```bash
+$ docker build -t comments-files:latest .
+
+$ docker start comments-files:latest
+```
+
+Check application logs
+
+```bash
+$ docker exec -it comments-files:latest sh
+```
+
+Now the application should listen amqp connection
 
 ## Test
 
@@ -58,15 +111,10 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+-   Author - Anton Deulia
+-   Telegram - @fa2pac
 
 ## License
 

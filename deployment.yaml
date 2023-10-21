@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: comments-files-deployment
+    lables:
+        app: comments-files-deployment
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: comments-files
+    template:
+        metadata:
+            labels:
+                app: comments-files
+        spec:
+            containers:
+                - name: comments-files-container
+                  image: jihnordraven/comments-files:latest

@@ -2,7 +2,7 @@ import { Controller, Logger } from '@nestjs/common'
 import { FilesService } from './files.service'
 import { MessagePattern, Payload } from '@nestjs/microservices'
 import { UploadFile } from './core/types/upload-file.type'
-import { bgCyan } from 'colorette'
+import { black } from 'colorette'
 
 @Controller()
 export class FilesController {
@@ -11,16 +11,16 @@ export class FilesController {
 	constructor(private readonly filesService: FilesService) {}
 
 	@MessagePattern('uploadFile')
-	public async uploadFile(@Payload() payload: UploadFile): Promise<boolean> {
-		this.logger.log(bgCyan(`uploadFile. Payload: ${payload}`))
+	public async uploadFile(@Payload() payload: UploadFile): Promise<any> {
+		this.logger.log(black(`uploadFile. Payload: ${payload}`))
 
-		return Boolean(await this.filesService.uploadFile(payload))
+		return await this.filesService.uploadFile(payload)
 	}
 
 	@MessagePattern('deleteFile')
-	public async deleteFile(@Payload() fileUrl: string): Promise<boolean> {
-		this.logger.log(bgCyan(`deleteFile. fileUrl: ${fileUrl}`))
+	public async deleteFile(@Payload() fileUrl: string): Promise<any> {
+		this.logger.log(black(`deleteFile. fileUrl: ${fileUrl}`))
 
-		return Boolean(await this.filesService.deleteFile(fileUrl))
+		return await this.filesService.deleteFile(fileUrl)
 	}
 }

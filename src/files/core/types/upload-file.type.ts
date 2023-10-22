@@ -1,4 +1,7 @@
 export type UploadFile = {
-	buffer: Buffer
-	extname: string
+	buffer: {
+		type: string
+		data: number[]
+	}
+	originalname: string
 }

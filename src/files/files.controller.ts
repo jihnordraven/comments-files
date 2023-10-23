@@ -12,14 +12,14 @@ export class FilesController {
 
 	@MessagePattern('uploadFile')
 	public async uploadFile(@Payload() payload: UploadFile): Promise<any> {
-		this.logger.log(black(`uploadFile. Payload: ${payload}`))
+		// this.logger.log(black(`uploadFile: ${payload.originalname}`))
 
 		return await this.filesService.uploadFile(payload)
 	}
 
 	@MessagePattern('deleteFile')
 	public async deleteFile(@Payload() fileUrl: string): Promise<any> {
-		this.logger.log(black(`deleteFile. fileUrl: ${fileUrl}`))
+		// this.logger.log(black(`deleteFile. fileUrl: ${fileUrl}`))
 
 		return await this.filesService.deleteFile(fileUrl)
 	}

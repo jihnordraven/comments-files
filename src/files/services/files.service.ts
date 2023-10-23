@@ -1,12 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { v4 } from 'uuid'
-import { UploadFile } from './core/types/upload-file.type'
+import { UploadFile } from '../core/types/upload-file.type'
 import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import { ConfigService } from '@nestjs/config'
 import { red } from 'colorette'
 import { extname } from 'path'
-import { DeleteFileRes, UploadFileRes } from './core/types'
+import { DeleteFileRes, UploadFileRes } from '../core/types'
 
 @Injectable()
 export class FilesService {

@@ -1,7 +1,7 @@
 import { Controller, Logger } from '@nestjs/common'
-import { FilesService } from './files.service'
+import { FilesService } from '../services/files.service'
 import { MessagePattern, Payload } from '@nestjs/microservices'
-import { UploadFile } from './core/types/upload-file.type'
+import { UploadFile } from '../core/types/upload-file.type'
 import { black } from 'colorette'
 
 @Controller()

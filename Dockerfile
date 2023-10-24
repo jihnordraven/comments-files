@@ -1,15 +1,9 @@
-FROM node
+FROM node:18
 
 WORKDIR /app
-
-RUN npm install -g yarn
-
+RUN npm install yarn
 COPY package*.json .
-
 RUN yarn install
-
 COPY . .
-
 RUN yarn build
-
 CMD ["yarn", "prod"]

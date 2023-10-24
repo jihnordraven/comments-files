@@ -29,19 +29,18 @@ files nest.js microservice | upload/delete files with s3 | using amqp message pa
 ## Prerequirements for local development
 
 1. Needs to have docker desktop installed on your machine
+2. Create .env file and paste .local.env into it
 
 ## Launch rabbitmq & postgres with docker
 
 ```bash
 # run rabbitmq container on port:5672 (web: http://localhost:15672 (guest:guest))
-$ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
-$ docker ps
-```
+$ docker run -d -p 5672:5672 -p 15672:15672 --name my-rabbitmq \
+  -e RABBITMQ_DEFAULT_USER=admin \
+  -e RABBITMQ_DEFAULT_PASS=admin \
+  rabbitmq:management
 
-```bash
-# run postgres container on port:5432 (connect: psql postgresql://guest:guest@localhost:5432)
-$ docker run -d --name postgres -p 5432:5432 -e POSTGRES_USER=guest -e POSTGRES_PASSWORD=guset postgresql
-$ docker ps
+$ docker logs rabbitmq
 ```
 
 ```bash
@@ -87,13 +86,15 @@ Build docker image
 ```bash
 $ docker build -t comments-files:latest .
 
-$ docker start comments-files:latest
+$ docker run -d --name comments-files-container comments-files:latest
+
+$ docker logs comments-files-container:latest
 ```
 
 Check application logs
 
 ```bash
-$ docker exec -it comments-files:latest sh
+$ docker exec -it comments-files-container:latest sh
 ```
 
 Now the application should listen amqp connection

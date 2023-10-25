@@ -3,21 +3,25 @@ import { NestFactory } from '@nestjs/core'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { AppModule } from './app.module'
 import { blue, red } from 'colorette'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 const logger: Logger = new Logger('bootstrap')
 
 const RMQ_HOST: string = String(process.env.RMQ_HOST)
 const RMQ_QUEUE: string = String(process.env.RMQ_QUEUE)
 
+let app: INestMicroservice
+
 const bootstrap = async (): Promise<void> => {
-	const app: INestMicroservice =
-		await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-			transport: Transport.RMQ,
-			options: {
-				urls: [RMQ_HOST],
-				queue: RMQ_QUEUE
-			}
-		})
+	app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+		transport: Transport.RMQ,
+		options: {
+			urls: [RMQ_HOST],
+			queue: RMQ_QUEUE
+		}
+	})
 
 	await app
 		.listen()
@@ -26,5 +30,7 @@ const bootstrap = async (): Promise<void> => {
 			logger.error(red(`Something went wrong... Learn more at: ${err}`))
 		)
 }
+
+export default app
 
 bootstrap()

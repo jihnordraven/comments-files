@@ -22,6 +22,12 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+## Important!
+
+To start the whole application on local machine with each docker iamge - go to https://github.com/jihnordraven/comments-users-auth and follow instructions №1
+
+## Important!
+
 ## Description
 
 files nest.js microservice | upload/delete files with s3 | using amqp message patterns
